@@ -32,7 +32,8 @@ float root(float f(float), float g(float), float a, float b, float eps1){
 
 }
 
-float integral(float f(float), float a, float b, float eps2, int n){
+float integral(float f(float), float a, float b, float eps2){
+    static n = 10;
     /*
     inter1 = (b - a)/n *(f(x1) + .. + f(xn-1))
     inter2 is the same, but for 2n
@@ -51,8 +52,9 @@ float integral(float f(float), float a, float b, float eps2, int n){
     inter2 *= ((b - a)/ (2 * n));
 
     if (abss(inter1 - inter2) <= eps2)
-        return inter1;
-    return integral(f, a, b, eps2, 2 * n);
+        return inter2;
+    n = n * 2;
+    return integral(f, a, b, eps2);
 }
 
 /*
@@ -68,6 +70,6 @@ f3  f1  1   2
 
 int main(void){
     printf("%.3f\n", root(f1, f2, 5, 6, 0.001));
-    printf("%.2f", integral(f0, 5, 6, 0.001, 1));
+    printf("%.2f", integral(f0, 5, 6, 0.001));
     return 0;
 }
