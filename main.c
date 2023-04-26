@@ -5,7 +5,7 @@ float abss(float x){
 }
 
 
-//define out functions
+//define our functions
 float f0(float x){
     return 3*x;
 }
@@ -21,7 +21,7 @@ float f3(float x){
 
 
 
-float root(float f(float), float g(float), float a, float b, float eps1){
+float root(float (*f)(float), float (*g)(float), float a, float b, float eps1){
     float c = f((a + b) / 2) - g((a + b) / 2); // c = result in then middle of [a, b] for function F = f - g
     if (b - a < eps1)// we are doing this process till length of [a, b] less than eps1
         return (a + b) / 2;
@@ -32,8 +32,8 @@ float root(float f(float), float g(float), float a, float b, float eps1){
 
 }
 
-float integral(float f(float), float a, float b, float eps2){
-    static n = 10;
+float integral(float (*f)(float), float a, float b, float eps2){
+    static int n = 10;
     /*
     inter1 = (b - a)/n *(f(x1) + .. + f(xn-1))
     inter2 is the same, but for 2n
