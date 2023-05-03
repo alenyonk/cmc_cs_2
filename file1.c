@@ -1,32 +1,16 @@
 #include <stdio.h>
 
-extern float f1(float x);
-extern float f2(float x);
-extern float f3(float x);
+extern double f1(double x);
+extern double f2(double x);
+extern double f3(double x);
 
-float abss(float x){
+double abss(double x){
     return x > 0? x: -x;
 }
 
 
-/*
-float f0(float x){
-    return - x + 1;
-}
-float f1(float x){
-    return x + 1;
-}
-float f2(float x){
-    return 2.5* x - 9.5;
-}
-float f3(float x){
-    return 5 / x;
-}
-*/
-
-
-float root(float f(float), float g(float), float a, float b, float eps1){
-    float c = f((a + b) / 2) - g((a + b) / 2); // c = result in then middle of [a, b] for function F = f - g
+double root(double f(double), float g(double), double a, double b, double eps1){
+    double c = f((a + b) / 2) - g((a + b) / 2); // c = result in then middle of [a, b] for function F = f - g
     if ((b - a < eps1) | c == 0)// we are doing this process till length of [a, b] less than eps1
         return (a + b) / 2;
     if ((f(b) - g(b)) * c < 0)// if F(b) and F(c) has different sign => now new a is (a + b) / 2; else new b is (a + b) / 2
@@ -36,20 +20,20 @@ float root(float f(float), float g(float), float a, float b, float eps1){
 
 }
 
-float integral(float f(float), float a, float b, float eps2, int n){
+double integral(double f(double), double a, double b, double eps2, int n){
     /*
     inter1 = (b - a)/n *(f(x1) + .. + f(xn-1))
     inter2 is the same, but for 2n
     */
-    float inter1 = 0;
-    for (float i = a ; i <= b; i += ((b - a)/n)){
+    double inter1 = 0;
+    for (double i = a ; i <= b; i += ((b - a)/n)){
         inter1 += f(i);
     }
     inter1 *= ((b - a)/ n);
 
-    float inter2 = 0;
+    double inter2 = 0;
     int m = 2 * n;
-    for (float j = a ; j <= b; j += ((b - a)/m)){
+    for (double j = a ; j <= b; j += ((b - a)/m)){
         inter2 += f(j);
     }
     inter2 *= ((b - a)/ (2 * n));
