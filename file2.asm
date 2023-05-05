@@ -16,16 +16,17 @@ section .rodata
     
 section .text
 ;f1 = 3 (0.5 / (x + 1) + 1)
-;f2 = 2.5x − 9.5 = (3x - 10)/2
+;f2 = 2.5x − 9.5 = (5x - 19)/2
 ;f3 = 5 / x
 
 global f1
+;3 (0.5 / (x + 1) + 1) = (6x + 6 + 3)/(2x + 2)
 f1:
     push ebp
     mov ebp, esp
     finit
     fld1
-    fld qword[ebp + 8]; обратились к х по адресу, который лежал на стеке
+    fld qword[ebp + 8]
     fld qword[ebp + 8]
     faddp
     fiadd dword[two]
@@ -41,11 +42,12 @@ f1:
     ret
 
 global f2
+;2.5x − 9.5 = (5x - 19)/2
 f2:
     push ebp
     mov ebp, esp
     finit
-    fld qword[ebp + 8]; обратились к х по адресу, который лежал на стеке
+    fld qword[ebp + 8]
     fld qword[ebp + 8]
     fld qword[ebp + 8]
     fld qword[ebp + 8]
@@ -53,7 +55,7 @@ f2:
     faddp
     faddp
     faddp
-    faddp; умножили на 5
+    faddp; making 5x by addition
     fisub dword[nineteen]
     fld1
     fld1
@@ -75,7 +77,7 @@ f3:
     faddp
     faddp
     faddp
-    faddp
+    faddp; making 5 by addition
     fld qword[ebp + 8]
     fdivp
     leave
